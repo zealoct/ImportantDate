@@ -9,7 +9,7 @@ using System.Text;
 namespace ImportantDate.Model
 {  
     [Table]
-    class IDate : INotifyPropertyChanged, INotifyPropertyChanging
+    public class IDate : INotifyPropertyChanged, INotifyPropertyChanging
     {
         // id of the important date
         private int _iDateId;
@@ -66,10 +66,15 @@ namespace ImportantDate.Model
                 {
                     NotifyPropertyChanging("Date");
                     _date = value;
+                    _dayToToday = (int)(DateTime.Today - _date).TotalDays;
                     NotifyPropertyChanged("Date");
                 }
             }
         }
+
+        // days have passed since the day
+        private int _dayToToday;
+        public int DayToToday { get { return _dayToToday; } }
 
         // Version column aids update performance.
         [Column(IsVersion = true)]

@@ -9,7 +9,7 @@ using System.Text;
 namespace ImportantDate.Model
 {
     [Table]
-    class IDateAnniversary : INotifyPropertyChanged, INotifyPropertyChanging
+    public class IDateAnniversary : INotifyPropertyChanged, INotifyPropertyChanging
     {
         // id, should be no use
         private int _id;
