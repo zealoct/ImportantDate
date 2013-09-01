@@ -80,6 +80,10 @@ namespace ImportantDate.View
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
+            db.Refresh(System.Data.Linq.RefreshMode.OverwriteCurrentValues, db.IDates);
+            db.Refresh(System.Data.Linq.RefreshMode.OverwriteCurrentValues, db.IDateAnniversaries);
+            db.Refresh(System.Data.Linq.RefreshMode.OverwriteCurrentValues, db.Anniversaries);
+
             var iDatesInDb = from IDate idate in db.IDates
                              select idate;
 
@@ -133,6 +137,24 @@ namespace ImportantDate.View
             if (MainPivot.SelectedIndex == 1)
             {
                 this.NavigationService.Navigate(new Uri("/View/EditAnniversaryPage.xaml?anniid=-1", UriKind.Relative));
+            }
+        }
+
+        private void ApplicationBarIconButtonRefresh_Click(object sender, EventArgs e)
+        {
+            var anniversariesInDb = from Anniversary anniversary in db.Anniversaries
+                                    select anniversary;
+
+            Anniversaries = new ObservableCollection<Anniversary>(anniversariesInDb);
+        }
+
+        private void AnnivesariesContextMenuItex_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem menu = sender as MenuItem;
+            Anniversary data = menu.DataContext as Anniversary;
+            if (menu.Header.Equals("Edit"))
+            {
+                NavigationService.Navigate(new Uri("/View/EditAnniversaryPage.xaml?anniid=" + data.AnniId, UriKind.Relative));
             }
         }
     }

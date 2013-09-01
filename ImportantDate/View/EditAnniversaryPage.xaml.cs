@@ -19,6 +19,9 @@ namespace ImportantDate.View
         ApplicationBarIconButton BtnSave;
         ApplicationBarIconButton BtnCancel;
 
+        Anniversary curData;
+        Boolean newInstance = false;
+
         public EditAnniversaryPage()
         {
             InitializeComponent();
@@ -51,10 +54,17 @@ namespace ImportantDate.View
             if (anniId.Equals("-1"))
             {
                 PageName.Text = "New Anniversary";
+                newInstance = true;
             }
             else
             {
                 PageName.Text = "Edit Anniversary";
+                newInstance = false;
+
+                curData = db.Anniversaries.Single(anni => anni.AnniId == Int32.Parse(anniId));
+
+                InputName.Text = curData.Name;
+                InputPeriod.Text = curData.Period.ToString();
             }
 
             CheckSaveBtnAvailability();
@@ -83,8 +93,16 @@ namespace ImportantDate.View
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            Anniversary newAnni = new Anniversary { Name = InputName.Text, Period = Int32.Parse(InputPeriod.Text) };
-            db.Anniversaries.InsertOnSubmit(newAnni);
+            if (newInstance)
+            {
+                Anniversary newAnni = new Anniversary { Name = InputName.Text, Period = Int32.Parse(InputPeriod.Text) };
+                db.Anniversaries.InsertOnSubmit(newAnni);
+            }
+            else
+            {
+                curData.Name = InputName.Text;
+                curData.Period = Int32.Parse(InputPeriod.Text);
+            }
 
             BtnCancel_Click(sender, e);
         }
