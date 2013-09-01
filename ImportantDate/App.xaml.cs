@@ -14,6 +14,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
 using ImportantDate.Model;
+using ImportantDate.View;
 
 namespace ImportantDate
 {
@@ -59,7 +60,7 @@ namespace ImportantDate
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
 
-            using (DatabaseContext db = new DatabaseContext(DatabaseContext.DBConnectionString))
+            using (DatabaseContext db = new DatabaseContext(DatabaseContext.DBConnectionString)) 
             {
                 if (db.DatabaseExists() == false)
                 {

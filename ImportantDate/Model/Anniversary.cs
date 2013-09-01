@@ -31,6 +31,25 @@ namespace ImportantDate.Model
             }
         }
 
+        private string _name;
+        [Column]
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                if (_name != value)
+                {
+                    NotifyPropertyChanging("Name");
+                    _name = value;
+                    NotifyPropertyChanged("Name");
+                }
+            }
+        }
+
         // period of the anniversary (in days)
         private int _period;
         [Column]
