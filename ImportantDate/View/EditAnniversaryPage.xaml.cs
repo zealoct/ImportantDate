@@ -55,6 +55,7 @@ namespace ImportantDate.View
             {
                 PageName.Text = "New Anniversary";
                 newInstance = true;
+                curData = new Anniversary();
             }
             else
             {
@@ -66,6 +67,8 @@ namespace ImportantDate.View
                 InputName.Text = curData.Name;
                 InputPeriod.Text = curData.Period.ToString();
             }
+
+            PageName.Text = "" + curData.AnniId;
 
             CheckSaveBtnAvailability();
 
@@ -93,18 +96,13 @@ namespace ImportantDate.View
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
+            curData.Name = InputName.Text;
+            curData.Period = Int32.Parse(InputPeriod.Text);
+
             if (newInstance)
             {
-                Anniversary newAnni = new Anniversary { Name = InputName.Text, Period = Int32.Parse(InputPeriod.Text) };
-                db.Anniversaries.InsertOnSubmit(newAnni);
+                db.Anniversaries.InsertOnSubmit(curData);
             }
-            else
-            {
-                curData.Name = InputName.Text;
-                curData.Period = Int32.Parse(InputPeriod.Text);
-            }
-
-            BtnCancel_Click(sender, e);
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)
