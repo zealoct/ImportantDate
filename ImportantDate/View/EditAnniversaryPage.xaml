@@ -4,6 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -28,31 +30,101 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-			<Grid.RowDefinitions>
+            <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
-			<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" 
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" 
                        Text="Name" VerticalAlignment="Top" Grid.Row="0"
                        FontSize="{StaticResource PhoneFontSizeSmall}"
                        Margin="12, 0, 0, 0" FontWeight="Light" 
                        Foreground="{StaticResource PhoneBorderBrush}"/>
             <TextBox x:Name="InputName" FontSize="{StaticResource PhoneFontSizeNormal}" 
-                     Margin="0,0,0,0" InputScope="Text" Grid.Row="1" TextChanged="All_TextChanged"/>
+                     Margin="0,0,0,0" InputScope="Text" Grid.Row="1" 
+                     TextChanged="All_TextChanged"/>
 
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" 
             	Text="Days" VerticalAlignment="Top" Grid.Row="2"
             	FontSize="{StaticResource PhoneFontSizeSmall}"
             	Margin="12,20,0,0" FontWeight="Light" 
                        Foreground="{StaticResource PhoneBorderBrush}"/>
-			<TextBox x:Name="InputPeriod" FontSize="{StaticResource PhoneFontSizeNormal}" 
+            <TextBox x:Name="InputPeriod" FontSize="{StaticResource PhoneFontSizeNormal}" 
                      Margin="0,0,0,0" InputScope="Number" Grid.Row="3" TextChanged="All_TextChanged"/>
+            <Grid Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <CheckBox Grid.Column="0" Margin="0, 0, 0, 0"/>
+                <toolkit:ToggleSwitch Grid.Column="1" Margin="0, 0, 0, 0">
+                    <Grid Margin="0, 0, 0, 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="周年" Grid.Row="0" 
+                               FontSize="{StaticResource PhoneFontSizeLarge}"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left"/>
+                        <TextBlock Text="360" Grid.Row="1" Grid.Column="1" 
+                               VerticalAlignment="Center"
+                               FontSize="{StaticResource PhoneFontSizeSmall}" 
+                               HorizontalAlignment="Left">
+                            <TextBlock.Foreground>
+                                <SolidColorBrush Color="{StaticResource PhoneBorderColor}"/>
+                            </TextBlock.Foreground>
+                        </TextBlock>
+                    </Grid>
+                </toolkit:ToggleSwitch>
+            </Grid>
+            <!--<Grid Grid.Row="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <CheckBox Height ="120" Grid.Column="0" Margin="0, 0, 0, 0"/>
+                <toolkit:ToggleSwitch Grid.Column="1" Margin="0, 0, 0, 0" Height ="120">
+                    <Grid Margin="0, 0, 0, 0" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="周年" Grid.Row="0" 
+                               FontSize="{StaticResource PhoneFontSizeLarge}"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left"/>
+                        <TextBlock Text="360" Grid.Row="1" Grid.Column="1" 
+                               VerticalAlignment="Center"
+                               FontSize="{StaticResource PhoneFontSizeSmall}" 
+                               HorizontalAlignment="Left">
+                            <TextBlock.Foreground>
+                                <SolidColorBrush Color="{StaticResource PhoneBorderColor}"/>
+                            </TextBlock.Foreground>
+                        </TextBlock>
+                    </Grid>
+                </toolkit:ToggleSwitch>
+            </Grid>-->
+            <toolkit:ToggleSwitch Grid.Row="0"/>
+            <TextBlock Grid.Row="6" Text="周年" 
+                       Margin="12, 0, 0, 0"
+                       FontSize="{StaticResource PhoneFontSizeLarge}"/>
+            <TextBlock Grid.Row="6" Text="360" VerticalAlignment="Bottom"
+                       Margin="12, 0, 0, 12"
+                       FontSize="{StaticResource PhoneFontSizeSmall}">
+                <TextBlock.Foreground>
+                    <SolidColorBrush Color="{StaticResource PhoneBorderColor}"/>
+                </TextBlock.Foreground>
+            </TextBlock>
+            <toolkit:ToggleSwitch Grid.Row="6" 
+                                  FontSize="{StaticResource PhoneFontSizeSmall}" 
+                                  
+                                  Margin ="0,20,0,0" VerticalContentAlignment="Top" HorizontalContentAlignment="Left"/>
         </Grid>
     </Grid>
 

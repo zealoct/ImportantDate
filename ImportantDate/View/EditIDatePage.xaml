@@ -24,13 +24,13 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="TITLE" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageName" Text="Basic Info" Margin="9,-7,0,0" 
+            <TextBlock Text="IMPORTANT DATE" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock x:Name="PageName" Text="Date" Margin="9,-7,0,0" 
                        Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -40,7 +40,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            
+
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" 
                        Text="Name" Grid.Row="0"
                        FontSize="{StaticResource PhoneFontSizeSmall}"
@@ -50,41 +50,91 @@
                      Margin="0,0,0,0" InputScope="Text" Grid.Row="1"/>
 
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" 
-            	Text="Date" VerticalAlignment="Top" Grid.Row="2"
-            	FontSize="{StaticResource PhoneFontSizeSmall}"
-            	Margin="12,20,0,0" FontWeight="Light" 
+                       Text="Date" VerticalAlignment="Top" Grid.Row="2"
+                       FontSize="{StaticResource PhoneFontSizeSmall}"
+                       Margin="12,20,0,0" FontWeight="Light" 
                        Foreground="{StaticResource PhoneBorderBrush}"/>
 
             <toolkit:DatePicker x:Name="InputDate" Margin="0,0,0,0" Grid.Row="3"/>
 
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" 
-            	Text="Anniversary" VerticalAlignment="Top" Grid.Row="4"
-            	FontSize="{StaticResource PhoneFontSizeSmall}"
-            	Margin="12,20,0,0" FontWeight="Light"
-                Foreground="{StaticResource PhoneBorderBrush}"/>
-            
-            <Button Content="+ Select Anniversary" HorizontalAlignment="Left" Margin="0, 0,0,0" 
+                       Text="Anniversary" VerticalAlignment="Top" Grid.Row="4"
+                       FontSize="{StaticResource PhoneFontSizeSmall}"
+                       Margin="12,20,0,0" FontWeight="Light"
+                       Foreground="{StaticResource PhoneBorderBrush}"/>
+
+            <!--<Button Content="+ Select Anniversary" HorizontalAlignment="Center" Margin="0,20,0,0" 
                     Grid.Row="5" VerticalAlignment="Top" 
                     FontSize="{StaticResource PhoneFontSizeNormal}"
-                    BorderBrush="{StaticResource TransparentBrush}"/>
+                    BorderBrush="{StaticResource TransparentBrush}">
+                <Button.Template>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Image Source="/Images/appbar.add.rest.png" Stretch="None" 
+                                   Grid.Column="0" />
+                            <TextBlock Text ="Select Anniversary" Grid.Column="1" 
+                                       VerticalAlignment="Center" FontSize="24"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>-->
 
-			<ListBox x:Name="SelectedAnnivesariesBox" ItemsSource="{Binding IAnniversaries}" Grid.Row="6">
-				<ListBox.ItemTemplate>
+            <ListBox x:Name="SelectAnnivesariesBox" Grid.Row="5"
+                     ItemsSource="{Binding Anniversaries}" Margin="12, 0, 12, 0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <!--<Grid HorizontalAlignment="Stretch" Width="440">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+                            <CheckBox Grid.Column="0" />
+                            <TextBlock  Text="{Binding Name}"
+                                        FontSize="{StaticResource PhoneFontSizeLarge}"
+                                        Grid.Column="1"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Left"/>
+                            <ToggleButton Grid.Column="2"/>
+                        </Grid>-->
+                        <!--<Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>-->
+                        <toolkit:ToggleSwitch Content="{Binding Name}" 
+                                              Checked="ToggleSwitch_Checked" 
+                                              Unchecked="ToggleSwitch_Unchecked" 
+                                              Width="440"
+                                              Grid.Column="0"/>
+                        <!--</Grid>-->
+                        
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <!--<ListBox x:Name="SelectedAnnivesariesBox" 
+                     ItemsSource="{Binding Anniversaries}" 
+                     Grid.Row="6">
+				<ListBox.ItemTemplate >
 					<DataTemplate>
-						<TextBlock Text="{Binding Name}" />
-					</DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <CheckBox Grid.Column="0"/>
+                            <TextBlock Text="{Binding Name}" Grid.Column="1"/>
+                            <ToggleButton Grid.Column="2"/>
+                        </Grid>
+                    </DataTemplate>
 				</ListBox.ItemTemplate>
-			</ListBox>
+			</ListBox>-->
         </Grid>
     </Grid>
-
-    <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton 
-                IconUri="/Images/appbar.save.rest.png" Text="Save" />
-            <shell:ApplicationBarIconButton 
-                IconUri="/Images/appbar.cancel.rest.png" Text="Cancel" />
-        </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>
-
 </phone:PhoneApplicationPage>

@@ -113,6 +113,7 @@
     <Content Include="Images\appbar.add.rest.png" />
     <Content Include="Images\appbar.cancel.rest.png" />
     <Content Include="Images\appbar.check.rest.png" />
+    <Content Include="Images\appbar.refresh.rest.png" />
     <Content Include="Images\appbar.save.rest.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>

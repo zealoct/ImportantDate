@@ -19,6 +19,7 @@ namespace ImportantDate.View
 {
     public partial class MainPage : PhoneApplicationPage, INotifyPropertyChanged
     {
+        App app;
         DatabaseContext db;
         //private IDate IDateToPass;
 
@@ -64,6 +65,7 @@ namespace ImportantDate.View
             db = new DatabaseContext(DatabaseContext.DBConnectionString);
 
             this.DataContext = this;
+            app = Application.Current as App;
         }
 
         protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
@@ -80,30 +82,38 @@ namespace ImportantDate.View
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-            db.Refresh(System.Data.Linq.RefreshMode.OverwriteCurrentValues, db.IDates);
-            db.Refresh(System.Data.Linq.RefreshMode.OverwriteCurrentValues, db.IDateAnniversaries);
-            db.Refresh(System.Data.Linq.RefreshMode.OverwriteCurrentValues, db.Anniversaries);
+            if (app.NeedRefreshIDates)
+            {
+                db.Refresh(System.Data.Linq.RefreshMode.OverwriteCurrentValues, db.IDates);
+                app.NeedRefreshIDates = false;
+            }
+
+            if (app.NeedRefreshAnniversaries)
+            {
+                db.Refresh(System.Data.Linq.RefreshMode.OverwriteCurrentValues, db.Anniversaries);
+                app.NeedRefreshAnniversaries = false;
+            }
 
             var iDatesInDb = from IDate idate in db.IDates
                              select idate;
 
             IDates = new ObservableCollection<IDate>(iDatesInDb);
-            IDates.Add(new IDate { Name = "日子1", Date = new DateTime(2013, 1, 13) });
-            IDates.Add(new IDate { Name = "日子2", Date = new DateTime(2013, 4, 3) });
-            IDates.Add(new IDate { Name = "日子3", Date = new DateTime(2013, 1, 13) });
-            IDates.Add(new IDate { Name = "日子4", Date = new DateTime(2013, 4, 3) });
-            IDates.Add(new IDate { Name = "日子5", Date = new DateTime(2013, 1, 13) });
-            IDates.Add(new IDate { Name = "日子6", Date = new DateTime(2013, 4, 3) });
-            IDates.Add(new IDate { Name = "日子7", Date = new DateTime(2013, 1, 13) });
-            IDates.Add(new IDate { Name = "日子8", Date = new DateTime(2013, 4, 3) });
-            IDates.Add(new IDate { Name = "日子9", Date = new DateTime(2013, 1, 13) });
-            IDates.Add(new IDate { Name = "日子10", Date = new DateTime(2013, 4, 3) });
-            IDates.Add(new IDate { Name = "日子11", Date = new DateTime(2013, 1, 13) });
-            IDates.Add(new IDate { Name = "日子12", Date = new DateTime(2013, 1, 13) });
-            IDates.Add(new IDate { Name = "日子13", Date = new DateTime(2013, 4, 3) });
-            IDates.Add(new IDate { Name = "日子14", Date = new DateTime(2013, 1, 13) });
-            IDates.Add(new IDate { Name = "日子15", Date = new DateTime(2013, 4, 3) });
-            IDates.Add(new IDate { Name = "日子16", Date = new DateTime(2013, 4, 3) });
+            //IDates.Add(new IDate { Name = "日子1", Date = new DateTime(2013, 1, 13) });
+            //IDates.Add(new IDate { Name = "日子2", Date = new DateTime(2013, 4, 3) });
+            //IDates.Add(new IDate { Name = "日子3", Date = new DateTime(2013, 1, 13) });
+            //IDates.Add(new IDate { Name = "日子4", Date = new DateTime(2013, 4, 3) });
+            //IDates.Add(new IDate { Name = "日子5", Date = new DateTime(2013, 1, 13) });
+            //IDates.Add(new IDate { Name = "日子6", Date = new DateTime(2013, 4, 3) });
+            //IDates.Add(new IDate { Name = "日子7", Date = new DateTime(2013, 1, 13) });
+            //IDates.Add(new IDate { Name = "日子8", Date = new DateTime(2013, 4, 3) });
+            //IDates.Add(new IDate { Name = "日子9", Date = new DateTime(2013, 1, 13) });
+            //IDates.Add(new IDate { Name = "日子10", Date = new DateTime(2013, 4, 3) });
+            //IDates.Add(new IDate { Name = "日子11", Date = new DateTime(2013, 1, 13) });
+            //IDates.Add(new IDate { Name = "日子12", Date = new DateTime(2013, 1, 13) });
+            //IDates.Add(new IDate { Name = "日子13", Date = new DateTime(2013, 4, 3) });
+            //IDates.Add(new IDate { Name = "日子14", Date = new DateTime(2013, 1, 13) });
+            //IDates.Add(new IDate { Name = "日子15", Date = new DateTime(2013, 4, 3) });
+            //IDates.Add(new IDate { Name = "日子16", Date = new DateTime(2013, 4, 3) });
 
             var anniversariesInDb = from Anniversary anniversary in db.Anniversaries
                                     select anniversary;
@@ -152,6 +162,7 @@ namespace ImportantDate.View
         {
             MenuItem menu = sender as MenuItem;
             Anniversary data = menu.DataContext as Anniversary;
+
             if (menu.Header.Equals("Edit"))
             {
                 NavigationService.Navigate(new Uri("/View/EditAnniversaryPage.xaml?anniid=" + data.AnniId, UriKind.Relative));

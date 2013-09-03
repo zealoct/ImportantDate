@@ -20,6 +20,10 @@ namespace ImportantDate
 {
     public partial class App : Application
     {
+        public Boolean NeedRefreshIDates { get; set; }
+        public Boolean NeedRefreshIDateAnniversaries { get; set; }
+        public Boolean NeedRefreshAnniversaries { get; set; }
+
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
         /// </summary>
